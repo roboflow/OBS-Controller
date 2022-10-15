@@ -1,0 +1,122 @@
+{
+  "name": "obs-websocket-js",
+  "version": "5.0.2",
+  "description": "OBS Websocket API in Javascript, consumes @Palakis/obs-websocket",
+  "author": "OBS Websocket Community",
+  "license": "MIT",
+  "repository": "obs-websocket-community-projects/obs-websocket-js",
+  "repoUrl": "https://github.com/obs-websocket-community-projects/obs-websocket-js",
+  "keywords": [
+    "obs",
+    "studio",
+    "websocket",
+    "node",
+    "node.js"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/json.d.ts",
+      "require": "./dist/json.cjs",
+      "browser": "./dist/json.modern.js",
+      "default": "./dist/msgpack.modern.js"
+    },
+    "./json": {
+      "types": "./dist/json.d.ts",
+      "require": "./dist/json.cjs",
+      "default": "./dist/json.modern.js"
+    },
+    "./msgpack": {
+      "types": "./dist/json.d.ts",
+      "require": "./dist/msgpack.cjs",
+      "default": "./dist/msgpack.modern.js"
+    }
+  },
+  "main": "dist/json.cjs",
+  "module": "dist/json.module.js",
+  "amdName": "OBSWebSocket",
+  "jsdelivr": "dist/obs-ws.min.js",
+  "unpkg": "dist/obs-ws.min.js",
+  "types": "dist/json.d.ts",
+  "engines": {
+    "node": ">12.0"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "npm-run-all clean build:*",
+    "build:bundle": "microbundle -f modern,esm,cjs --no-compress src/{json,msgpack}.ts --generateTypes false",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:unpkg": "node scripts/generate-unpkg.js",
+    "clean": "rimraf dist",
+    "dev": "npm run build:bundle --watch",
+    "generate:obs-types": "node --loader=ts-node/esm scripts/build-types.ts",
+    "lint": "eslint . --ext .cjs,.js,.ts",
+    "prepack": "npm run build",
+    "report": "c8 report",
+    "test": "c8 ava",
+    "test:watch": "ava --watch"
+  },
+  "dependencies": {
+    "@msgpack/msgpack": "^2.7.1",
+    "crypto-js": "^4.1.1",
+    "debug": "^4.3.2",
+    "eventemitter3": "^4.0.7",
+    "isomorphic-ws": "^4.0.1",
+    "type-fest": "^2.3.2",
+    "ws": "^8.2.2"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/crypto-js": "^4.0.1",
+    "@types/debug": "^4.1.5",
+    "@types/eslint": "^8.2.1",
+    "@types/ws": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "ava": "^4.2.0",
+    "c8": "^7.11.3",
+    "coveralls": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.2.0",
+    "eslint-config-xo": "^0.41.0",
+    "eslint-config-xo-typescript": "^0.51.1",
+    "eslint-plugin-ava": "^13.1.0",
+    "eslint-plugin-jsdoc": "^39.3.3",
+    "got": "^12.0.0",
+    "lodash.deburr": "^4.1.0",
+    "microbundle": "^0.15.0",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  },
+  "bugs": {
+    "url": "https://github.com/obs-websocket-community-projects/obs-websocket-js/issues"
+  },
+  "homepage": "https://github.com/obs-websocket-community-projects/obs-websocket-js#readme",
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ],
+    "verbose": true
+  },
+  "c8": {
+    "all": true,
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
+}
