@@ -1,5 +1,8 @@
 # OBS-Controller
 
+![Gestures example](https://github.com/roboflow-ai/OBS-Controller/blob/main/gestures.gif?raw=true)
+
+
 ## Step 1 - Downloading the Default Roboflow Controller
 
 Download Roboflow OBS Controller Zip from GitHub: Download OBS Controller
